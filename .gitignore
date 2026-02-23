@@ -1,0 +1,40 @@
+﻿# Env
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Editores
+.vscode/
+.claude/
+.gemini/
+.codex/
+
+# Media/Static
+media/
+staticfiles/
+
+# Dev only
+docker-compose.dev.yml
+Dockerfile.dev
+
+supabase/.temp/

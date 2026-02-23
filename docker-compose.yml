@@ -1,0 +1,31 @@
+services:
+  trustgate-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+
+      # === HTTPS Router ===
+      - "traefik.http.routers.trustgate-secure.rule=Host(`trustgate.2asoft.tech`)"
+      - "traefik.http.routers.trustgate-secure.entrypoints=websecure"
+      - "traefik.http.routers.trustgate-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.trustgate-secure.service=trustgate"
+      - "traefik.http.services.trustgate.loadbalancer.server.port=80"
+
+      # === HTTP Redirect ===
+      - "traefik.http.routers.trustgate.rule=Host(`trustgate.2asoft.tech`)"
+      - "traefik.http.routers.trustgate.entrypoints=web"
+      - "traefik.http.routers.trustgate.middlewares=trustgate-redirect"
+      - "traefik.http.middlewares.trustgate-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.trustgate-redirect.redirectscheme.permanent=true"
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
