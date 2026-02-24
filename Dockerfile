@@ -12,9 +12,6 @@ RUN npm install
 # Copiamos el resto del código
 COPY . .
 
-# Cargamos variables de entorno para el build
-COPY .env .env
-
 # Compilamos la app
 RUN npm run build
 
