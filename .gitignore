@@ -38,3 +38,4 @@ docker-compose.dev.yml
 Dockerfile.dev
 
 supabase/.temp/
+mcp.json
