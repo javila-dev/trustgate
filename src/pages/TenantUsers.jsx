@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../supabaseClient'
 import { useToast } from '../components/ToastProvider'
 import { useNavigate } from 'react-router-dom'
+import { getSupabaseEnv } from '../utils/env'
 
 const TenantUsers = () => {
   const { addToast } = useToast()
@@ -29,8 +30,7 @@ const TenantUsers = () => {
       throw new Error('Sesión expirada. Inicia sesión nuevamente.')
     }
 
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+    const { url: supabaseUrl, anonKey } = getSupabaseEnv()
     if (!supabaseUrl || !anonKey) {
       throw new Error('Faltan variables de Supabase en el entorno.')
     }

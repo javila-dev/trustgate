@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
+import { getSupabaseEnv } from './utils/env'
 
 // Obtener variables de entorno
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const { url: supabaseUrl, anonKey: supabaseAnonKey } = getSupabaseEnv()
 
 // Validar que las variables existan
 if (!supabaseUrl || !supabaseAnonKey) {

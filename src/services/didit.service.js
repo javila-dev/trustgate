@@ -1,4 +1,5 @@
 import { supabase } from '../supabaseClient'
+import { getSupabaseEnv } from '../utils/env'
 
 /**
  * Didit Service
@@ -10,7 +11,7 @@ const DiditService = {
    * Get the Edge Function URL
    */
   getProxyUrl() {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+    const { url: supabaseUrl } = getSupabaseEnv()
     return `${supabaseUrl}/functions/v1/didit-proxy`
   },
 
@@ -19,7 +20,7 @@ const DiditService = {
    */
   async getAuthHeaders() {
     const { data: { session } } = await supabase.auth.getSession()
-    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+    const { anonKey } = getSupabaseEnv()
     if (session?.access_token) {
       return {
         'Content-Type': 'application/json',

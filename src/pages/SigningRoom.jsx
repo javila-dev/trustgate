@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import DiditService from '../services/didit.service'
 import DocumensoService from '../services/documenso.service'
 import { EmbedSignDocument } from '@documenso/embed-react'
+import { getSupabaseEnv } from '../utils/env'
 
 // Flow states
 const FLOW_STATES = {
@@ -82,7 +83,7 @@ const SigningRoom = () => {
   const processedContinuityTokenRef = useRef(null)
 
   const getSigningRoomUrl = () => {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+    const { url: supabaseUrl } = getSupabaseEnv()
     return `${supabaseUrl}/functions/v1/signing-room`
   }
 
